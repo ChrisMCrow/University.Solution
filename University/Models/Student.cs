@@ -53,7 +53,7 @@ namespace University.Models
                 int id = rdr.GetInt32(0);
                 string name = rdr.GetString(1);
                 DateTime enrollmentDate = rdr.GetDateTime(2);
-                Student newStudent = new Student(name,enrollmentDate,id);
+                Student newStudent = new Student(name, enrollmentDate, id);
                 allStudents.Add(newStudent);
             }
             conn.Close();

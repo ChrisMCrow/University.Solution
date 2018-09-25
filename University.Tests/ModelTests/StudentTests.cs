@@ -23,7 +23,7 @@ namespace University.Tests
         [TestMethod]
         public void GetAllStudents_ReturnsAllStudents_StudentList()
         {
-            Student newStudent = new Student("Chris",Convert.ToDateTime("2018-01-01"));
+            Student newStudent = new Student("Chris", Convert.ToDateTime("2018-01-01"));
             newStudent.Save();
 
             List<Student> allStudents = Student.GetAllStudents();

@@ -1,1 +1,22 @@
-<h2></h2>
+<h2>@Model["course"].Name - Course Details</h2>
+<hr />
+<h3>Students Currently Enrolled</h3>
+@foreach (var student in Model["course"].GetStudents())
+{
+  <h4><a href='/students/@student.Id'>@student.Name</a></h4>
+}
+<hr />
+<h3>Enroll Students in @Model["course"].Name</h3>
+<form action='/courses/@Model["course"].Id/students/new' method='post'>
+  <div class='form-group'>
+    <label for='studentId'>Select a Student</label>
+    <select name="studentId">
+      @foreach (var student in Model["students"])
+      {
+        <option value="@student.Id">@student.Name</option>
+      }
+    </select>
+    <button type="submit" class="btn btn-info">Enroll</button>
+  </div>
+</form>
+<h4><a href="/courses">Back to courses</a></h4>

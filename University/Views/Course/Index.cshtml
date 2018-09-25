@@ -3,6 +3,7 @@
 @foreach (var course in Model)
 {
   <h4><a href='/courses/@course.Id'>@course.Name</a> | @course.CourseNumber</h4>
+  <h6><a href='/courses/@course.Id/update'>Update</a> | <a href='/courses/@course.Id/delete'>Delete</a></h6>
 }
 
 <hr />
@@ -18,3 +19,4 @@
   </div>
   <button type='submit' class='btn btn-warning'>Add</button>
 </form>
+<h4><a href="/">Back home</a></h4>

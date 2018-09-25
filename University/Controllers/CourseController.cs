@@ -31,7 +31,7 @@ namespace University.Controllers
         {
             Course newCourse = Course.Find(id);
             newCourse.Edit(newName,newNumber);
-            return RedirectToAction("Details", new {id = newCourse.Id});
+            return RedirectToAction("Index");
         }
 
         [HttpGet("/courses/{id}/delete")]
@@ -45,17 +45,19 @@ namespace University.Controllers
         public ActionResult Details(int id)
         {
             Dictionary<string, object> model = new Dictionary<string, object> {};
-
             Course thisCourse = Course.Find(id);
-            List<Student> allStudents = thisCourse.GetStudents();
-            return View(allStudents);
+            List<Student> allStudents = Student.GetAllStudents();
+            model.Add("course", thisCourse);
+            model.Add("students", allStudents);
+            return View(model);
         }
 
         [HttpPost("/courses/{id}/students/new")]
-        public ActionResult Add(int id, int studentId)
+        public ActionResult Add(int id, string studentId)
         {
+            int studentInt = int.Parse(studentId);
             Course foundCourse = Course.Find(id);
-            foundCourse.AddStudent(studentId);
+            foundCourse.AddStudent(studentInt);
             return RedirectToAction("Details", new {id = foundCourse.Id});
         }
     }
