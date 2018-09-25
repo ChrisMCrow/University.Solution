@@ -1,0 +1,20 @@
+<h2>All Courses</h2>
+
+@foreach (var course in Model)
+{
+  <h4><a href='/courses/@course.Id'>@course.Name</a> | @course.CourseNumber</h4>
+}
+
+<hr />
+<h2>Add a New Course</h2>
+<form action='/courses' method='post'>
+  <div class='form-group'>
+    <label for='courseName'>Enter Course Name:</label>
+    <input name='courseName' type='text' class='form-control' />
+  </div>
+  <div class='form-group'>
+    <label for='courseNumber'>Enter Course Number:</label>
+    <input name='courseNumber' type='text' class='form-control'/>
+  </div>
+  <button type='submit' class='btn btn-warning'>Add</button>
+</form>
