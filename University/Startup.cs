@@ -41,6 +41,6 @@ namespace University
     }
     public static class DBConfiguration
     {
-        public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=University;";
+        public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=university;";
     }
 }
