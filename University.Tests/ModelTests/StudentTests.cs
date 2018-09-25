@@ -12,6 +12,7 @@ namespace University.Tests
     {
         public void Dispose()
         {
+            Course.DeleteAll();
             Student.DeleteAll();
         }
         public StudentTests()
@@ -63,6 +64,19 @@ namespace University.Tests
             int count = Student.GetAllStudents().Count;
 
             Assert.AreEqual(0,count);
+        }
+        [TestMethod]
+        public void GetCourses_ReturnCoursesOfStudent_CoursesList()
+        {
+            Student newStudent = new Student("Meria", Convert.ToDateTime("2018-09-01"));
+            newStudent.Save();
+            Course newCourse = new Course("Art","ART101");
+            newCourse.Save();
+
+            newStudent.AddCourse(newCourse.Id);
+            List<Course> resultList = newStudent.GetCourses();
+
+            Assert.AreEqual(newCourse,resultList[0]);
         }
     }
 }

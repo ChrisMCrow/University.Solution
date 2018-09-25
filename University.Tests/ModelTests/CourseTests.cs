@@ -13,6 +13,7 @@ namespace University.Tests
         public void Dispose()
         {
             Course.DeleteAll();
+            Student.DeleteAll();
         }
         public CourseTests()
         {
@@ -53,7 +54,7 @@ namespace University.Tests
 
             Assert.AreEqual(newCourse, updatedCourse);
         }
-        
+
         [TestMethod]
         public void Delete_DeleteCourse()
         {
@@ -65,5 +66,20 @@ namespace University.Tests
 
             Assert.AreEqual(0,count);
         }
+
+        [TestMethod]
+        public void GetStudents_ReturnsStudentsEnrolledInCourse_ListStudents()
+        {
+            Course newCourse = new Course("Art", "ART101");
+            newCourse.Save();
+            Student newStudent = new Student("Meria", Convert.ToDateTime("2018-09-01"));
+            newStudent.Save();
+            newCourse.AddStudent(newStudent.Id);
+
+            List<Student> resultList = newCourse.GetStudents();
+
+            Assert.AreEqual(newStudent, resultList[0]);
+        }
+
     }
 }

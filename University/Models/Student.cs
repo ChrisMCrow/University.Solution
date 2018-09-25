@@ -170,8 +170,59 @@ namespace University.Models
             {
                 conn.Dispose();
             }
-
         }
+        public void AddCourse(int courseId)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
 
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO students_courses (student_id, course_id) VALUES (@studentId, @courseId);";
+
+            cmd.Parameters.AddWithValue("@studentId", this.Id);
+            cmd.Parameters.AddWithValue("@courseId", courseId);
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+            if(conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+        public List<Course> GetCourses()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT courses.* FROM students   JOIN students_courses ON (students.id = students_courses.student_id)
+            JOIN courses ON (students_courses.course_id = courses.id)
+            WHERE students.id = @studentId;";
+
+            cmd.Parameters.AddWithValue("@studentId" , this.Id);
+
+            List<Course> allCourses = new List<Course>{};
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            while(rdr.Read())
+            {
+                int id = rdr.GetInt32(0);
+                string name = rdr.GetString(1);
+                string courseName = rdr.GetString(2);
+                Course newCourse = new Course(name, courseName,id);
+                allCourses.Add(newCourse);
+            }
+            conn.Close();
+            if(conn != null)
+            {
+                conn.Dispose();
+            }
+            return allCourses;
+        }
+        public override string ToString()
+        {
+            return String.Format("{{id = {0}, name = {1}, date={2}}}", Id, Name, EnrollmentDate);
+        }
     }
 }
